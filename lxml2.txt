@@ -1,0 +1,38 @@
+import xml.etree.ElementTree as et
+from pprint import pprint
+
+xml_file= open('C:\\Users\\Mohamedabrar.A\\Desktop\\BCBSNE ACA 2017_75909321.xml')
+data=xml_file.read()
+document=et.fromstring(data.encode('utf-8'))
+all_pages=document.findall("Page")
+# pprint(all_pages)
+total_document={}
+
+for pg in all_pages:
+    page_number=pg.find("PageNumber")
+    # pprint(page_number.text)
+
+    zone=pg.find("Zone")
+    # pprint(zone
+
+    lines=zone.findall("Line")
+    # pprint(lines)
+    list=[]
+    list1=[]
+    dict={}
+
+    # linelist = {"LineList":[]}
+
+    for ocr in lines:
+        for number in lines:
+
+            num_text=ocr.find("LineNumber")
+            # pprint(num_text.text)
+            ocr_text=ocr.find("OCRCharacters")
+            # pprint(ocr_text.text)
+            # list.append(num_text.text)
+            # list1.append(ocr_text.text)
+            dict={"LineNumber":num_text.text,"OCRCharacters":ocr_text.text}
+            linelist = {"LineList": [dict]}
+    total_document[page_number.text] = linelist
+pprint(total_document)
